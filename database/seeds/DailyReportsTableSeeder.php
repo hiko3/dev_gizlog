@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 
-class DairyReportsTableSeeder extends Seeder
+class DailyReportsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,9 +12,8 @@ class DairyReportsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('dairyreports')->truncate();
-        for ($i = 1; $i < 100; $i++){
-            DB::table('dairyreports')->insert([
+        DB::table('dailyreports')->truncate();
+            DB::table('dailyreports')->insert([
                 [
                     'title' => 'test',
                     'user_id' => 1,
@@ -23,7 +22,6 @@ class DairyReportsTableSeeder extends Seeder
     
                 ],
             ]);
-        }
 
     }
 }

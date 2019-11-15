@@ -4,9 +4,16 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\DailyReport;
 
-class DairyReportController extends Controller
+class DailyReportController extends Controller
 {
+    private $report;
+
+    public function __construct(DailyReport $instanceClass) {
+        $this->report = $instanceClass;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,8 @@ class DairyReportController extends Controller
      */
     public function index()
     {
-        //
+        $reports = $this->report->all();
+        return view('user.daily_report.index', compact('reports'));
     }
 
     /**
@@ -24,7 +32,7 @@ class DairyReportController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.daily_report.create');
     }
 
     /**
