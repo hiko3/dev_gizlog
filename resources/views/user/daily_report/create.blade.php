@@ -5,7 +5,6 @@
 <div class="main-wrap">
   <div class="container">
     {!! Form::open(['route' => 'report.store']) !!}
-      {!! Form::input('hidden', 'user_id', NULL, ['class' => 'form-control']) !!}
     <div class="form-group form-size-small">
       {!! Form::input('date', 'reporting_time', NULL, ['class' => 'form-control']) !!}
       <span class="help-block"></span>
@@ -15,10 +14,10 @@
       <span class="help-block"></span>
     </div>
     <div class="form-group">
-      {!! Form::textarea('contents', NULL, ['class' => 'form-control', 'placeholder' => 'Content']) !!}
+      {!! Form::textarea('content', NULL, ['class' => 'form-control', 'placeholder' => 'Content']) !!}
       <span class="help-block"></span>
     </div>
-      {!! Form::button('Add', ['class' => 'btn btn-success pull-right']) !!}
+      {!! Form::submit('Add', ['class' => 'btn btn-success pull-right']) !!}
     {!! Form::close() !!}
   </div>
 </div>

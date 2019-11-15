@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\DailyReport;
+use Auth;
 
 class DailyReportController extends Controller
 {
@@ -43,7 +44,10 @@ class DailyReportController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $input = $request->all();
+        $input['user_id'] = Auth::id();
+        $this->report->create($input);
+        return redirect()->route('report.index');
     }
 
     /**
