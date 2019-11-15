@@ -43,7 +43,7 @@ class DailyReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
