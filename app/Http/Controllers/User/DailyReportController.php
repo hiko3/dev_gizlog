@@ -20,9 +20,17 @@ class DailyReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $reports = $this->report->all();
+        $searchMonth = $request->input('search-month');
+        
+        if(empty($searchMonth))
+        {
+            $reports = $this->report->paginate(10);
+        }else {
+            $reports = $this->report->where('reporting_time', 'LIKE', "%{$searchMonth}%")->paginate(10);
+        }
+
         return view('user.daily_report.index', compact('reports'));
     }
 
@@ -98,6 +106,7 @@ class DailyReportController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->report->find($id)->delete();
+        return redirect()->route('report.index');
     }
 }
