@@ -22,7 +22,7 @@ class DailyReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(SearchRequest $request)
     {
         $searchMonth = $request->input('search-month');
 
@@ -54,9 +54,9 @@ class DailyReportController extends Controller
      */
     public function store(ReportRequest $request)
     {
-        $input = $request->validated();
-        $input['user_id'] = Auth::id();
-        $this->report->create($input);
+        $inputs = $request->validated();
+        $inputs['user_id'] = Auth::id();
+        $this->report->create($inputs);
         return redirect()->route('report.index');
     }
 
@@ -93,9 +93,9 @@ class DailyReportController extends Controller
      */
     public function update(ReportRequest $request, $id)
     {
-        $input = $request->validated();
-        $input['user_id'] = Auth::id();
-        $this->report->find($id)->create($input);
+        $inputs = $request->validated();
+        $inputs['user_id'] = Auth::id();
+        $this->report->find($id)->create($inputs);
         return redirect()->route('report.index');
     }
 
