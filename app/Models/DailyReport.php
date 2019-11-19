@@ -21,4 +21,13 @@ class DailyReport extends Model
         'content'
     ];
 
+    public function getDailyReport()
+    {
+        return $this->orderBy('reporting_time', 'desc')->paginate(10);
+    }
+
+    public function searchDailyReport($searchMonth)
+    {
+        return $this->where('reporting_time', 'LIKE', "%{$searchMonth}%")->orderBy('reporting_time', 'desc')->paginate(10);
+    }
 }

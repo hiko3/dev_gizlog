@@ -28,9 +28,9 @@ class DailyReportController extends Controller
 
         if(empty($searchMonth))
         {
-            $reports = $this->report->orderBy('reporting_time', 'desc')->paginate(10);
+            $reports = $this->report->getDailyReport();
         }else {
-            $reports = $this->report->where('reporting_time', 'LIKE', "%{$searchMonth}%")->orderBy('reporting_time', 'desc')->paginate(10);
+            $reports = $this->report->searchDailyReport($searchMonth);
         }
 
         return view('user.daily_report.index', compact('reports'));
