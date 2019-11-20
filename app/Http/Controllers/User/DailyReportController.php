@@ -13,18 +13,20 @@ class DailyReportController extends Controller
 {
     private $report;
 
-    public function __construct(DailyReport $instanceClass) {
-        $this->report = $instanceClass;
+    public function __construct(DailyReport $dailyReportInstance) {
+        $this->report = $dailyReportInstance;
     }
 
     /**
-     * Display a listing of the resource.
+     * 日報一覧画面表示
      *
-     * @return \Illuminate\Http\Response
+     * @param SearchRequest $request
+     * @return \Illuminate\View\View
      */
     public function index(SearchRequest $request)
     {
         $searchMonth = $request->input('search-month');
+        // dd($searchMonth);
 
         if(empty($searchMonth))
         {
@@ -37,9 +39,9 @@ class DailyReportController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 日報作成画面表示
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -47,10 +49,10 @@ class DailyReportController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 日報新規登録処理
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param ReportRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(ReportRequest $request)
     {
@@ -61,10 +63,10 @@ class DailyReportController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * 日報詳細画面表示
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function show($id)
     {
@@ -73,10 +75,10 @@ class DailyReportController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 日報編集画面表示
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
@@ -85,11 +87,11 @@ class DailyReportController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * 日報更新処理
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param ReportRequest $request
+     * @param [int] $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(ReportRequest $request, $id)
     {
@@ -100,10 +102,10 @@ class DailyReportController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 日報削除処理
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
