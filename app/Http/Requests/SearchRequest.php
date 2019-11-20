@@ -24,7 +24,7 @@ class SearchRequest extends FormRequest
     public function rules()
     {
         return [
-             'search-month' => 'date|before_or_equal:now',
+            'search-month' => 'before_or_equal:now|nullable',
         ];
     }
 }

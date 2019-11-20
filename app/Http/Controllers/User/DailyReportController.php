@@ -26,16 +26,15 @@ class DailyReportController extends Controller
     public function index(SearchRequest $request)
     {
         $searchMonth = $request->input('search-month');
-        // dd($searchMonth);
 
         if(empty($searchMonth))
         {
             $reports = $this->report->getDailyReport();
-        }else {
+        } else {
             $reports = $this->report->searchDailyReport($searchMonth);
         }
 
-        return view('user.daily_report.index', compact('reports'));
+        return view('user.daily_report.index', compact('reports', 'searchMonth'));
     }
 
     /**
