@@ -24,9 +24,9 @@ class ReportRequest extends FormRequest
     public function rules()
     {
         return [
-            'reporting_time' => 'required|before_or_equal:now',
-            'title'          => 'required|max:30',
-            'content'        => 'required|max:1000',
+            'reporting_time' => 'required|string|before_or_equal:now',
+            'title'          => 'required|string|max:30',
+            'content'        => 'required|string|max:1000',
         ];
     }
 
