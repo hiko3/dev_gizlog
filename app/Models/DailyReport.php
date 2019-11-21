@@ -9,10 +9,7 @@ class DailyReport extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'dailyreports';
-
     protected $dates = ['deleted_at', 'reporting_time'];
-
     protected $fillable = 
     [
         'user_id',
@@ -21,15 +18,16 @@ class DailyReport extends Model
         'reporting_time'
     ];
 
-    public function getDailyReport()
+    public function getDailyReport($id)
     {
-        $paginateNum = 10;
-        return $this->orderBy('reporting_time', 'desc')->paginate($paginateNum);
+        define("paginateNum", 10);
+        return $this->where('user_id', $id)->orderBy('reporting_time', 'desc')->paginate(paginateNum);
     }
 
-    public function searchDailyReport($searchMonth)
+    public function searchDailyReport($id, $searchMonth)
     {
-        return $this->where('reporting_time', 'LIKE', "%{$searchMonth}%")
+        return $this->where('user_id', $id)
+                    ->where('reporting_time', 'LIKE', "%{$searchMonth}%")
                     ->orderBy('reporting_time', 'desc')
                     ->paginate(10);
     }
