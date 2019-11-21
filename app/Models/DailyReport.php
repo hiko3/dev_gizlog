@@ -18,19 +18,21 @@ class DailyReport extends Model
         'reporting_time'
     ];
 
-    public function getDailyReport($id)
-    {
-        define("paginateNum", 10);
-        return $this->where('user_id', $id)->orderBy('reporting_time', 'desc')->paginate(paginateNum);
-    }
+
+    // public function getDailyReport($id)
+    // {
+    //     return $this->where('user_id', $id)->orderBy('reporting_time', 'desc')->paginate(config('const.PAGINATE_NUM'));
+    // }
 
     public function searchDailyReport($id, $searchMonth)
     {
         return $this->where('user_id', $id)
-                    ->where('reporting_time', 'LIKE', "%{$searchMonth}%")
+                    ->when($searchMonth, function($query, $searchMonth) {
+                        return $query->where('reporting_time', 'LIKE', "{$searchMonth}%");
+                    })
                     ->orderBy('reporting_time', 'desc')
-                    ->paginate(10);
+                    ->paginate(config('const.PAGINATE_NUM'));
     }
- 
+
 
 }

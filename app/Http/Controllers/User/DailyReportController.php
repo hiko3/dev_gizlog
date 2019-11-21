@@ -26,14 +26,7 @@ class DailyReportController extends Controller
     public function index(SearchRequest $request)
     {
         $searchMonth = $request->input('search-month');
-
-        if(empty($searchMonth))
-        {
-            $reports = $this->report->getDailyReport();
-        } else {
-            $reports = $this->report->searchDailyReport($searchMonth);
-        }
-
+        $reports = $this->report->searchDailyReport(Auth::id(), $searchMonth);
         return view('user.daily_report.index', compact('reports', 'searchMonth'));
     }
 
@@ -89,14 +82,14 @@ class DailyReportController extends Controller
      * 日報更新処理
      *
      * @param ReportRequest $request
-     * @param [int] $id
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(ReportRequest $request, $id)
     {
         $inputs = $request->validated();
         $inputs['user_id'] = Auth::id();
-        $this->report->find($id)->create($inputs);
+        $this->report->find($id)->fill($inputs)->save();
         return redirect()->route('report.index');
     }
 
