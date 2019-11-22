@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,7 +24,7 @@ class ReportRequest extends FormRequest
     public function rules()
     {
         return [
-            'reporting_time' => 'required|string|before_or_equal:now',
+            'reporting_time' => 'required|date|before_or_equal:now',
             'title'          => 'required|string|max:30',
             'content'        => 'required|string|max:1000',
         ];
@@ -35,8 +35,7 @@ class ReportRequest extends FormRequest
         return [
             'required'        => '入力必須の項目です。',
             'before_or_equal' => '今日以前の日付を入力してください。',
-            'title.max'       => ':max文字以内で入力してください。',
-            'content.max'     => ':max文字以内で入力してください。',
+            'max'             => ':max文字以内で入力してください。',
         ];
     }
 }

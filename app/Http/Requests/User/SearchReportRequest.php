@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SearchRequest extends FormRequest
+class SearchReportRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class SearchRequest extends FormRequest
     public function rules()
     {
         return [
-            'search-month' => 'before_or_equal:now|nullable|string'
+            'search-month' => 'before_or_equal:now|nullable|string|date',
         ];
     }
 }

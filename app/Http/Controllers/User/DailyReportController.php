@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\User;
 
-use Illuminate\Http\Request;
-use App\Http\Requests\ReportRequest;
-use App\Http\Requests\SearchRequest;
+use App\Http\Requests\User\ReportRequest;
+use App\Http\Requests\User\SearchReportRequest;
 use App\Http\Controllers\Controller;
 use App\Models\DailyReport;
 use Auth;
@@ -20,10 +19,10 @@ class DailyReportController extends Controller
     /**
      * 日報一覧画面表示
      *
-     * @param SearchRequest $request
+     * @param SearchReportRequest $request
      * @return \Illuminate\View\View
      */
-    public function index(SearchRequest $request)
+    public function index(SearchReportRequest $request)
     {
         $searchMonth = $request->input('search-month');
         $reports = $this->report->searchDailyReport(Auth::id(), $searchMonth);

@@ -7,7 +7,7 @@
     {!! Form::open(['route' => 'report.store']) !!}
     <div class="form-group form-size-small {{ $errors->has('reporting_time') ? ' has-error' : '' }}">
       {!! Form::input('date', 'reporting_time', NULL, ['class' => 'form-control']) !!}
-      <span class="help-block">{{$errors->first('reporting_time')}}</span>
+      <span class="help-block">{{ $errors->first('reporting_time')}}</span>
     </div>
     <div class="form-group {{ $errors->has('title') ? ' has-error' : '' }}">
       {!! Form::input('text', 'title', NULL, ['class' => 'form-control', 'placeholder' => 'Title']) !!}
