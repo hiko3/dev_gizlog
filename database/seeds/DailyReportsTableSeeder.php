@@ -12,6 +12,7 @@ class DailyReportsTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('daily_reports')->truncate();
         factory(App\Models\DailyReport::class, 100)->create();
     }
 }
