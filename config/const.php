@@ -1,6 +1,6 @@
 <?php
 
 return [
-  'PAGINATE_NUM' => 10,
+  'REPORT_PAGINATE_NUM' => 10,
 ];
 ?>
