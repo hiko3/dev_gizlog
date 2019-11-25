@@ -12,7 +12,8 @@ class DailyReportController extends Controller
 {
     private $report;
 
-    public function __construct(DailyReport $dailyReportInstance) {
+    public function __construct(DailyReport $dailyReportInstance)
+    {
         $this->report = $dailyReportInstance;
     }
 

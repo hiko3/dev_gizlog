@@ -9,7 +9,7 @@ class DailyReport extends Model
 {
     use SoftDeletes;
 
-    protected $dates = ['deleted_at', 'reporting_time'];
+    protected $dates = ['reporting_time', 'deleted_at'];
     protected $fillable = [
         'user_id',
         'title',
@@ -24,7 +24,7 @@ class DailyReport extends Model
  * @param int $date
  * @return LengthAwarePaginator
  */
-    public function searchDailyReport($id, $date)
+   public function searchDailyReport($id, $date)
     {
         return $this->where('user_id', $id)
                     ->when($date, function($query, $date) {
