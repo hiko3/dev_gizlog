@@ -31,9 +31,9 @@
          @endforeach 
       </tbody>
     </table>
-      <div class="text-center">
-        {{ $reports->appends(request()->input())->links() }}
-      </div>
+    <div class="text-center">
+      {{ $reports->appends(request()->input())->links() }}
+    </div>
   </div>
 </div>
 
