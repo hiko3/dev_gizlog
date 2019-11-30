@@ -6,13 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Models\TagCategory;
-use App\Models\Comment;
-use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
-    protected $question;
-    protected $category;
+    private $question;
+    
+    private $category;
 
     public function __construct(Question $questionInstance, TagCategory $categoryInstance)
     {
@@ -20,6 +19,7 @@ class QuestionController extends Controller
         $this->question = $questionInstance;
         $this->category = $categoryInstance;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -62,7 +62,9 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        return view('user.question.show');
+        $question = $this->question->find($id);
+        // $comment = $this->comment->find($id);
+        return view('user.question.show', compact('question'));
     }
 
     /**
