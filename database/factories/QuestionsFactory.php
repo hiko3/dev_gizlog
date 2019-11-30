@@ -7,6 +7,6 @@ $factory->define(App\Models\Question::class, function (Faker $faker) {
         'title'           => $faker->title,
         'content'         => $faker->text,
         'tag_category_id' => rand(1, 4),
-        'user_id'         => 4,
+        'user_id'         => rand(1, 4),
     ];
 });

@@ -18,5 +18,10 @@ class Question extends Model
     {
         return $this->belongsTo(TagCategory::class);
     }
+
+    public function comment()
+    {
+        return $this->hasmany(Comment::class);
+    }
 }
 

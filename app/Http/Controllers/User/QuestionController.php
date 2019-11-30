@@ -5,16 +5,20 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Question;
+use App\Models\TagCategory;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
     protected $question;
+    protected $category;
 
-    public function __construct(Question $questionInstance)
+    public function __construct(Question $questionInstance, TagCategory $categoryInstance)
     {
         $this->middleware('auth');
         $this->question = $questionInstance;
+        $this->category = $categoryInstance;
     }
     /**
      * Display a listing of the resource.
@@ -23,8 +27,10 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $this->question->all();
-        return view('user.question.index');
+        $questions = $this->question->paginate(10);
+        $categories = $this->category->all();
+
+        return view('user.question.index', compact('questions','categories'));
     }
 
     /**
@@ -34,7 +40,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.question.create');
     }
 
     /**
@@ -56,7 +62,7 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('user.question.show');
     }
 
     /**
