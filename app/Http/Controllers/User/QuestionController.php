@@ -39,7 +39,9 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        return view('user.question.create');
+        $lists = $this->category->pluck('name');
+        $lists->prepend('Select Category', 'name');
+        return view('user.question.create', compact('lists'));
     }
 
     /**
@@ -50,7 +52,9 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inputs = $request->all();
+        return $this->question->create($inputs);
+        redirect()->route('question.index');
     }
 
     /**

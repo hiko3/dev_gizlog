@@ -4,12 +4,15 @@
 <h2 class="brand-header">質問投稿</h2>
 <div class="main-wrap">
   <div class="container">
-    <form>
+    {{-- <form> --}}
+    {!! Form::open(['question.store']) !!}
       <div class="form-group">
-        <select name='tag_category_id' class = "form-control selectpicker form-size-small" id="pref_id">
-          <option value="">Select category</option>
-            <option value= ""></option>
-        </select>
+        {{-- <select name='tag_category_id' class = "form-control selectpicker form-size-small" id="pref_id"> --}}
+          {!! Form::select('tag_category_id', $lists, null, ['class' => 'form-control selectpicker form-size-small']) !!}
+        
+          {{-- <option value="">Select category</option> --}}
+            {{-- <option value= ""></option> --}}
+        {{-- </select> --}}
         <span class="help-block"></span>
       </div>
       <div class="form-group">

@@ -21,9 +21,9 @@ class CommentController extends Controller
 
     public function store(Request $request)
     {
-        $input = $request->all();
-        $question = $this->question->find($input['question_id']);
-        $this->comment->create($input);
+        $inputs = $request->all();
+        $question = $this->question->find($inputs['question_id']);
+        $this->comment->create($inputs);
         return redirect()->route('question.show', ['question' => $question]);
     }
 }
