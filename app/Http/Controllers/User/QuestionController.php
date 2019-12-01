@@ -10,7 +10,6 @@ use App\Models\TagCategory;
 class QuestionController extends Controller
 {
     private $question;
-    
     private $category;
 
     public function __construct(Question $questionInstance, TagCategory $categoryInstance)
@@ -63,7 +62,6 @@ class QuestionController extends Controller
     public function show($id)
     {
         $question = $this->question->find($id);
-        // $comment = $this->comment->find($id);
         return view('user.question.show', compact('question'));
     }
 

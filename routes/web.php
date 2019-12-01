@@ -42,6 +42,7 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
 
     Route::resource('report', DailyReportController::class);
     Route::resource('question', QuestionController::class);
+    Route::post('comment', ['as' => 'comment.store', 'uses' => 'CommentController@store']);
 
 });
 
