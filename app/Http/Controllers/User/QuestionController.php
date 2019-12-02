@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Models\TagCategory;
+use Auth;
 
 class QuestionController extends Controller
 {
@@ -26,10 +27,9 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        dd('aaa');
-        $questions = $this->question->paginate(10);
+        $questions = $this->question->orderBy('created_at', 'desc')->paginate(10);
         $categories = $this->category->all();
-
+        // dd($categories);
         return view('user.question.index', compact('questions','categories'));
     }
 
@@ -40,8 +40,8 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        $lists = $this->category->pluck('name');
-        $lists->prepend('Select Category', 'name');
+        $lists = $this->category->pluck('name', 'id');
+        $lists->prepend('Select Category');
         return view('user.question.create', compact('lists'));
     }
 
@@ -54,8 +54,10 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
-        return $this->question->create($inputs);
-        redirect()->route('question.index');
+        // dd($inputs);
+        $inputs['user_id'] = Auth::id();
+        $this->question->create($inputs);
+        return redirect()->route('question.index');
     }
 
     /**

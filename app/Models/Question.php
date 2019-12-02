@@ -9,6 +9,13 @@ class Question extends Model
 {
     use SoftDeletes;
 
+    protected $fillable = [
+        'user_id',
+        'tag_category_id',
+        'title',
+        'content',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

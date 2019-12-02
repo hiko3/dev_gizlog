@@ -8,7 +8,7 @@
     {!! Form::open(['route' => 'question.store']) !!}
       <div class="form-group">
         {{-- <select name='tag_category_id' class = "form-control selectpicker form-size-small" id="pref_id"> --}}
-          {!! Form::select('tag_category_id', $lists, null, ['class' => 'form-control selectpicker form-size-small']) !!}
+          {!! Form::select('tag_category_id', $lists, null, ['class' => 'form-control selectpicker form-size-small', 'id' => 'pref_id']) !!}
         
           {{-- <option value="">Select category</option> --}}
             {{-- <option value= ""></option> --}}
@@ -17,7 +17,7 @@
       </div>
       <div class="form-group">
         {{-- <input class="form-control" placeholder="title" name="title" type="text"> --}}
-        {!! Form::input('title', 'text', null, ['class' => 'form-control', 'placeholder' => 'title']) !!}
+        {!! Form::input('text', 'title', null, ['class' => 'form-control', 'placeholder' => 'title']) !!}
         <span class="help-block"></span>
       </div>
       <div class="form-group">
@@ -27,7 +27,7 @@
       </div>
       {{-- <input name="confirm" class="btn btn-success pull-right" type="submit" value="create"> --}}
       {{-- {!! Form::button('create','confirm', ['class' => 'btn btn-success pull-right']) !!} --}}
-      {!! Form::button('create', ['class' => 'btn btn-success pull-right', 'type' => 'submit', 'name' => 'confirm']) !!}
+      {!! Form::button('create', ['class' => 'btn btn-success pull-right', 'type' => 'submit', 'name' => 'user_id']) !!}
     </form>
   </div>
 </div>
