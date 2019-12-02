@@ -26,6 +26,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
+        dd('aaa');
         $questions = $this->question->paginate(10);
         $categories = $this->category->all();
 
