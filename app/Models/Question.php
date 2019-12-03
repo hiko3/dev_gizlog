@@ -30,5 +30,24 @@ class Question extends Model
     {
         return $this->hasmany(Comment::class);
     }
+
+    public function scopeWhereCategory($query, $category)
+    {
+        if ($category) {
+            return $query->where('tag_category_id', $category);
+        }
+
+        return $query;
+    }
+    
+    public function scopeSearchTitle($query, $title)
+    {
+        if($title) {
+            return $query->where('title', 'LIKE', '%'.$title.'%');
+        }
+
+        return $query;
+    }
+
 }
 

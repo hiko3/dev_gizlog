@@ -3,25 +3,25 @@
 
 <h2 class="brand-header">質問一覧</h2>
 <div class="main-wrap">
-  <form>
-    <div class="btn-wrapper">
-      <div class="search-box">
-        <input class="form-control search-form" placeholder="Search words..." name="search_word" type="text">
-        <button type="submit" class="search-icon"><i class="fa fa-search" aria-hidden="true"></i></button>
-      </div>
-      <a class="btn" href="{{ route('question.create') }}"><i class="fa fa-plus" aria-hidden="true"></i></a>
-      <a class="btn" href="">
-        <i class="fa fa-user" aria-hidden="true"></i>
-      </a>
+  <div class="btn-wrapper">
+    {!! Form::open(['route' => ['question.index'], 'method' => 'GET', 'class' => 'search']) !!}
+    <div class="search-box">
+      {!! Form::input('text', 'search_word', null, ['class' => 'form-control search-form', 'placeholder' => 'Search words...']) !!}
+      {!! Form::button('<i class="fa fa-search" aria-hidden="true"></i>', ['class' => 'search-icon', 'type' => 'submit']) !!}
     </div>
-    <div class="category-wrap">
-        <div class="btn all" id="0">all</div>
-      @foreach($categories as $category)
-        <div class="btn {{ $category->name }}" id="{{ $category->id }}">{{ $category->name }}</div>
-        <input id="category-val" name="tag_category_id" type="hidden" value="">
-      @endforeach
-    </div>
-  </form>
+    <a class="btn" href="{{ route('question.create') }}"><i class="fa fa-plus" aria-hidden="true"></i></a>
+    <a class="btn" href="">
+      <i class="fa fa-user" aria-hidden="true"></i>
+    </a>
+  </div>
+  <div class="category-wrap">
+      <div class="btn all" id="0">all</div>
+    @foreach($categories as $category)
+      <div class="btn {{ $category->name }}" id="{{ $category->id }}">{{ $category->name }}</div>
+    @endforeach
+      {!! Form::hidden('tag_category_id', NULL, ['id' => 'category-val']) !!}
+    {!! Form::close() !!}
+  </div>
   <div class="content-wrapper table-responsive">
     <table class="table table-striped">
       <thead>
@@ -51,8 +51,11 @@
     </table>
     <div aria-label="Page navigation example" class="text-center"></div>
   </div>
-{{ $questions->links() }}
+  <div class="text-center">
+    {{ $questions->links() }}
+  </div>
 </div>
+
 
 @endsection
 

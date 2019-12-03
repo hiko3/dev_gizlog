@@ -25,11 +25,13 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $questions = $this->question->orderBy('created_at', 'desc')->paginate(10);
+        $questions = $this->question->whereCategory(request('tag_category_id'))
+                ->searchTitle(request('search_word'))
+                ->orderBy('created_at', 'desc')
+                ->paginate(10);
         $categories = $this->category->all();
-        // dd($categories);
         return view('user.question.index', compact('questions','categories'));
     }
 
@@ -55,8 +57,10 @@ class QuestionController extends Controller
     {
         $inputs = $request->all();
         // dd($inputs);
-        $inputs['user_id'] = Auth::id();
-        $this->question->create($inputs);
+        // $inputs['user_id'] = Auth::id();
+        $this->question->create([
+            'user_id' => Auth::id(),   
+        ], $inputs);
         return redirect()->route('question.index');
     }
 
