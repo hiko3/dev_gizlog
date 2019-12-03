@@ -27,12 +27,21 @@ class QuestionController extends Controller
      */
     public function index(Request $request)
     {
-        $questions = $this->question->whereCategory(request('tag_category_id'))
-                ->searchTitle(request('search_word'))
+        $wordVal = $request->input('search_word');
+        $categoryVal = $request->input('tag_category_id');
+        $questions = $this->question->whereCategory($categoryVal)
+                ->searchTitle($wordVal)
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);
         $categories = $this->category->all();
-        return view('user.question.index', compact('questions','categories'));
+        return view('user.question.index', compact('questions','categories', 'wordVal', 'categoryVal'));
+    }
+
+    public function mypage()
+    {
+        $id = Auth::id();
+        $questions = $this->question->where('user_id', $id)->orderBy('created_at', 'desc')->paginate(10);
+        return view('user.question.mypage', compact('questions'));
     }
 
     /**
@@ -56,11 +65,8 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
-        // dd($inputs);
-        // $inputs['user_id'] = Auth::id();
-        $this->question->create([
-            'user_id' => Auth::id(),   
-        ], $inputs);
+        $inputs['user_id'] = Auth::id();
+        $this->question->create($inputs);
         return redirect()->route('question.index');
     }
 
@@ -84,7 +90,9 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $lists = $this->category->pluck('name', 'id');
+        $question = $this->question->find($id);
+        return view('user.question.edit', compact('question', 'lists'));
     }
 
     /**
@@ -96,7 +104,9 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $inputs = $request->all();
+        $this->question->find($id)->fill($inputs)->save();
+        return redirect()->route('question.mypage', Auth::id());
     }
 
     /**

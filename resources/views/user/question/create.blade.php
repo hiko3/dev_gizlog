@@ -27,7 +27,7 @@
       </div>
       {{-- <input name="confirm" class="btn btn-success pull-right" type="submit" value="create"> --}}
       {{-- {!! Form::button('create','confirm', ['class' => 'btn btn-success pull-right']) !!} --}}
-      {!! Form::button('create', ['class' => 'btn btn-success pull-right', 'type' => 'submit', 'name' => 'user_id']) !!}
+      {!! Form::button('create', ['class' => 'btn btn-success pull-right', 'type' => 'submit', 'name' => 'confirm']) !!}
     </form>
   </div>
 </div>
