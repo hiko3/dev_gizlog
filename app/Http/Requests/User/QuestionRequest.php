@@ -4,7 +4,7 @@ namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CommentRequest extends FormRequest
+class QuestionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,21 +24,24 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'comment' => 'required|nullable|max:1000'
+            'tag_category_id' => 'required|int',
+            'title'           => 'required|max:100',
+            'content'         => 'required|max:1000',
         ];
     }
 
     public function messages()
     {
         return [
-            'comment.required' => '入力必須の項目です。',
-            'max'              => ':max文字以内で入力してください'
+            'required'    => '入力必須の項目です',
+            'title.max'   => '100文字以内で入力してください',
+            'content.max' => '1000文字以内で入力してください', 
         ];
     }
 
-    public function fetchComment()
+    public function fetchQuestion()
     {
-        return $this->only('user_id', 'question_id', 'comment');
+        return $this->only('tag_category_id', 'title', 'content');
     }
-}
 
+}

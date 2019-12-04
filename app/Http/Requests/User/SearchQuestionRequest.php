@@ -4,7 +4,7 @@ namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class QuestionsRequest extends FormRequest
+class SearchQuestionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +23,8 @@ class QuestionsRequest extends FormRequest
      */
     public function rules()
     {
-        //
-    }
-
-    public function messages()
-    {
-        //
+        return [
+            'search_word' => 'nullable|string|max:100'
+        ];
     }
 }
-
