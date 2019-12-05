@@ -42,7 +42,7 @@ class Question extends Model
     
     public function scopeSearchTitle($query, $title)
     {
-        if($title) {
+        if ($title) {
             return $query->where('title', 'LIKE', '%'.$title.'%');
         }
 
@@ -50,4 +50,3 @@ class Question extends Model
     }
 
 }
-

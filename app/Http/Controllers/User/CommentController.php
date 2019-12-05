@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Comment;
 use App\Models\Question;
 use App\Http\Requests\User\CommentRequest;
@@ -20,9 +19,15 @@ class CommentController extends Controller
         $this->question = $questionInstance;
     }
 
+    /**
+     * コメント作成処理
+     *
+     * @param CommentRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(CommentRequest $request)
     {
-        $inputs = $request->fetchComment();
+        $inputs = $request->requestComment();
         $question = $this->question->find($inputs['question_id']);
         $this->comment->create($inputs);
         return redirect()->route('question.show', ['question' => $question]);
