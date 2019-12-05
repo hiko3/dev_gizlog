@@ -22,9 +22,10 @@ class QuestionController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * 質問一覧表示
      *
-     * @return \Illuminate\Http\Response
+     * @param SearchQuestionRequest $request
+     * @return \Illuminate\View\View
      */
     public function index(SearchQuestionRequest $request)
     {
@@ -35,9 +36,14 @@ class QuestionController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);
         $categories = $this->category->all();
-        return view('user.question.index', compact('questions','categories', 'wordVal', 'categoryVal'));
+        return view('user.question.index', compact('questions', 'categories', 'wordVal', 'categoryVal'));
     }
 
+    /**
+     * マイページ表示
+     *
+     * @return \Illuminate\View\View
+     */
     public function mypage()
     {
         $id = Auth::id();
@@ -45,6 +51,12 @@ class QuestionController extends Controller
         return view('user.question.mypage', compact('questions'));
     }
 
+    /**
+     * 質問確認画面表示 
+     *
+     * @param QuestionRequest $request
+     * @return \Illuminate\View\View
+     */
     public function confirm(QuestionRequest $request)
     {
         $question = $request->all();
@@ -54,9 +66,9 @@ class QuestionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 質問新規作成画面表示
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -66,10 +78,10 @@ class QuestionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 質問新規投稿作成
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param QuestionRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(QuestionRequest $request)
     {
@@ -80,10 +92,10 @@ class QuestionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * 質問詳細画面表示
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\View\View
      */
     public function show($id)
     {
@@ -92,10 +104,10 @@ class QuestionController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 質問編集画面
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
@@ -105,11 +117,11 @@ class QuestionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * 質問更新処理
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param QuestionRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(QuestionRequest $request, $id)
     {
@@ -119,14 +131,14 @@ class QuestionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 質問削除処理
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
         $this->question->find($id)->delete();
-        return back()->withInput();;
+        return back()->withInput();
     }
 }
