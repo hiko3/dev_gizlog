@@ -24,7 +24,7 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'comment' => 'required|nullable|max:1000'
+            'comment' => 'required|string|max:1000'
         ];
     }
 
@@ -36,9 +36,8 @@ class CommentRequest extends FormRequest
         ];
     }
 
-    public function fetchComment()
+    public function requestComment()
     {
         return $this->only('user_id', 'question_id', 'comment');
     }
 }
-

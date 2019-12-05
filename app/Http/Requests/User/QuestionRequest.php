@@ -24,9 +24,9 @@ class QuestionRequest extends FormRequest
     public function rules()
     {
         return [
-            'tag_category_id' => 'required|exists:tag_categories,id,deleted_at,NULL',
-            'title'           => 'required|max:100',
-            'content'         => 'required|max:1000',
+            'tag_category_id' => 'required|int|exists:tag_categories,id,deleted_at,NULL',
+            'title'           => 'required|string|max:100',
+            'content'         => 'required|string|max:1000',
         ];
     }
 
@@ -40,7 +40,7 @@ class QuestionRequest extends FormRequest
         ];
     }
 
-    public function fetchQuestion()
+    public function requestQuestion()
     {
         return $this->only('tag_category_id', 'title', 'content');
     }
