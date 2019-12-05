@@ -45,6 +45,14 @@ class QuestionController extends Controller
         return view('user.question.mypage', compact('questions'));
     }
 
+    public function confirm(QuestionRequest $request)
+    {
+        $question = $request->all();
+        $id = $request->input('tag_category_id');
+        $category = $this->category->find($id);
+        return view('user.question.confirm', compact('question', 'category'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -106,8 +114,8 @@ class QuestionController extends Controller
     public function update(QuestionRequest $request, $id)
     {
         $inputs = $request->fetchQuestion();
-        $this->question->find($id)->update($inputs);
-        return redirect()->route('question.mypage', Auth::id());
+        $this->question->find($id)->fill($inputs)->save();
+        return redirect()->route('question.index');
     }
 
     /**
@@ -118,6 +126,7 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->question->find($id)->delete();
+        return back()->withInput();;
     }
 }

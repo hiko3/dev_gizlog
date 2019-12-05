@@ -48,7 +48,7 @@
         <span class="help-block">{{ $errors->first('comment') }}</span>
       </div>
       <div class="comment-bottom">
-          {!! Form::button('<i class="fa fa-pencil" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'type' => 'submit']) !!}
+        {!! Form::button('<i class="fa fa-pencil" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'type' => 'submit']) !!}
       </div>
     {!! Form::close() !!}
   </div>
