@@ -5,7 +5,7 @@
 
 <div class="main-wrap">
   <div class="container">
-    {!! Form::open(['route' => ['question.update', $question->id], 'method' => 'PUT']) !!}
+    {!! Form::open(['route' => ['question.confirm',], 'method' => 'GET']) !!}
       <div class="form-group {{ $errors->has('tag_category_id') ? 'has-error' : '' }}">
         {!! Form::select('tag_category_id', $lists, null, ['class' => 'form-control selectpicker form-size-small', 'id' => 'pref_id']) !!}
         <span class="help-block">{{ $errors->first('tag_category_id') }}</span>
@@ -18,6 +18,7 @@
         {!! Form::textarea('content', $question->content, ['class' => 'form-control', 'placeholder' => 'Please write down your question here...']) !!}
         <span class="help-block">{{ $errors->first('content') }}</span>
       </div>
+        {!! Form::hidden('id', $question->id) !!}
       {!! Form::submit('update', ['name' => 'confirm', 'class' => 'btn btn-success pull-right']) !!}
     {!! Form::close() !!}
   </div>

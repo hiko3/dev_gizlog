@@ -4,9 +4,9 @@
 <h2 class="brand-header">質問投稿</h2>
 <div class="main-wrap">
   <div class="container">
-    {!! Form::open(['route' => 'question.store']) !!}
+    {!! Form::open(['route' => ['question.confirm'], 'method' => 'GET']) !!}
       <div class="form-group {{ $errors->has('tag_category_id') ? 'has-error' : '' }}">
-          {!! Form::select('tag_category_id', $lists, null, ['class' => 'form-control selectpicker form-size-small', 'id' => 'pref_id']) !!}
+        {!! Form::select('tag_category_id', $lists, null, ['class' => 'form-control selectpicker form-size-small', 'id' => 'pref_id']) !!}
         <span class="help-block">{{ $errors->first('tag_category_id') }}</span>
       </div>
       <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
