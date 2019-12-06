@@ -4,7 +4,7 @@
 <h2 class="brand-header">質問投稿</h2>
 <div class="main-wrap">
   <div class="container">
-    {!! Form::open(['route' => ['question.confirm'], 'method' => 'GET']) !!}
+    {!! Form::open(['route' => ['question.confirm']]) !!}
       <div class="form-group {{ $errors->has('tag_category_id') ? 'has-error' : '' }}">
         {!! Form::select('tag_category_id', $lists, null, ['class' => 'form-control selectpicker form-size-small', 'id' => 'pref_id']) !!}
         <span class="help-block">{{ $errors->first('tag_category_id') }}</span>
@@ -17,7 +17,7 @@
         {!! Form::textarea('content', null, ['class' => 'form-control', 'placeholder' => 'Please write down your question here...']) !!}
         <span class="help-block">{{ $errors->first('content') }}</span>
       </div>
-    {!! Form::button('create', ['class' => 'btn btn-success pull-right', 'type' => 'submit', 'name' => 'confirm']) !!}
+    {!! Form::button('create', ['class' => 'btn btn-success pull-right', 'type' => 'submit']) !!}
   </div>
 </div>
 
