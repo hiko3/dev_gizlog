@@ -25,14 +25,14 @@
     </div>
   </div>
     <div class="comment-list">
-          @foreach($question->comment as $c)
+          @foreach($question->comments as $comment)
         <div class="comment-wrap">
           <div class="comment-title">
-            <img src="{{ $c->user->avatar }}" class="avatar-img">
-            <p>{{ $c->user->name }}</p>
+            <img src="{{ $comment->user->avatar }}" class="avatar-img">
+            <p>{{ $comment->user->name }}</p>
             <p class="comment-date"></p>
           </div>
-            <div class="comment-body">{!! nl2br(e($c->comment)) !!}</div>
+            <div class="comment-body">{!! nl2br(e($comment->comment)) !!}</div>
         </div>
           @endforeach
     </div>

@@ -44,4 +44,9 @@ class QuestionRequest extends FormRequest
         return $this->only('tag_category_id', 'title', 'content');
     }
 
+    public function requestConfirm()
+    {
+        return $this->only('tag_category_id', 'title', 'content', 'id');
+    }
+
 }

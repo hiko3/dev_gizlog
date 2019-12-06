@@ -31,7 +31,7 @@ class QuestionController extends Controller
     {
         $wordVal = $request->input('search_word');
         $categoryVal = $request->input('tag_category_id');
-        $questions = $this->question->with(['tagCategory', 'comment'])
+        $questions = $this->question->with(['tagCategory', 'comments'])
             ->whereCategory($categoryVal)
             ->searchTitle($wordVal)
             ->orderBy('created_at', 'desc')
@@ -48,7 +48,7 @@ class QuestionController extends Controller
     public function mypage()
     {
         $id = Auth::id();
-        $questions = $this->question->with(['tagCategory', 'comment'])
+        $questions = $this->question->with(['tagCategory', 'comments'])
             ->where('user_id', $id)
             ->orderBy('created_at', 'desc')
             ->paginate(config('const(QUESTION_PAGINATE_NUM)'));
@@ -63,7 +63,7 @@ class QuestionController extends Controller
      */
     public function confirm(QuestionRequest $request)
     {
-        $question = $request->all();
+        $question = $request->requestConfirm();
         $id = $request->input('tag_category_id');
         $category = $this->category->find($id);
         return view('user.question.confirm', compact('question', 'category'));
@@ -130,7 +130,7 @@ class QuestionController extends Controller
     {
         $inputs = $request->requestQuestion();
         $this->question->find($id)->update($inputs);
-        return redirect()->route('question.index');
+        return redirect()->route('question.mypage');
     }
 
     /**

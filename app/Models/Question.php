@@ -26,27 +26,23 @@ class Question extends Model
         return $this->belongsTo(TagCategory::class);
     }
 
-    public function comment()
+    public function comments()
     {
         return $this->hasmany(Comment::class);
     }
 
     public function scopeWhereCategory($query, $category)
     {
-        if ($category) {
+        if (!empty($category)) {
             return $query->where('tag_category_id', $category);
         }
-
-        return $query;
     }
     
     public function scopeSearchTitle($query, $title)
     {
-        if ($title) {
+        if (!empty($title)) {
             return $query->where('title', 'LIKE', '%'.$title.'%');
         }
-
-        return $query;
     }
 
 }
