@@ -31,18 +31,49 @@ class Question extends Model
         return $this->hasmany(Comment::class);
     }
 
-    public function scopeWhereCategory($query, $category)
+    /**
+     * 質問タイトル検索
+     *
+     * @param mixed $query
+     * @param string $title
+     * @return Builderインスタンス
+     */
+    public function scopeSearchTitle($query, $searchWord)
     {
-        if (!empty($category)) {
-            return $query->where('tag_category_id', $category);
+        if (!empty($searchWord)) {
+            return $query->where('title', 'LIKE', '%'.$searchWord.'%');
         }
     }
     
-    public function scopeSearchTitle($query, $title)
+    /**
+     * カテゴリーの絞り込み
+     *
+     * @param mixed $query
+     * @param int $category
+     * @return Builderインスタンス
+     */
+    public function scopeWhereCategory($query, $categoryId)
     {
-        if (!empty($title)) {
-            return $query->where('title', 'LIKE', '%'.$title.'%');
+        if (!empty($categoryId)) {
+            return $query->where('tag_category_id', $categoryId);
         }
+    }
+
+    public function searchOrDisplay($searchWord, $categoryId)
+    {
+        return $this->with(['tagCategory', 'comments'])
+            ->searchTitle($searchWord)
+            ->whereCategory($categoryId)
+            ->orderBy('created_at', 'desc')
+            ->paginate(config('const(QUESTION_PAGINATE_NUM)'));
+    }
+
+    public function showMypage($userId)
+    {
+        return $this->with(['tagCategory', 'comments'])
+            ->where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->paginate(config('const(QUESTION_PAGINATE_NUM)'));
     }
 
 }

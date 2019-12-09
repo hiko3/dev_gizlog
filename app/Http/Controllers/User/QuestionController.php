@@ -29,15 +29,11 @@ class QuestionController extends Controller
      */
     public function index(SearchQuestionRequest $request)
     {
-        $wordVal = $request->input('search_word');
-        $categoryVal = $request->input('tag_category_id');
-        $questions = $this->question->with(['tagCategory', 'comments'])
-            ->whereCategory($categoryVal)
-            ->searchTitle($wordVal)
-            ->orderBy('created_at', 'desc')
-            ->paginate(config('const(QUESTION_PAGINATE_NUM)'));
+        $searchWord = $request->input('search_word');
+        $categoryId = $request->input('tag_category_id');
+        $questions = $this->question->searchOrDisplay($searchWord, $categoryId);
         $categories = $this->category->all();
-        return view('user.question.index', compact('questions', 'categories', 'wordVal', 'categoryVal'));
+        return view('user.question.index', compact('questions', 'categories', 'searchWord', 'categoryId'));
     }
 
     /**
@@ -47,11 +43,8 @@ class QuestionController extends Controller
      */
     public function mypage()
     {
-        $id = Auth::id();
-        $questions = $this->question->with(['tagCategory', 'comments'])
-            ->where('user_id', $id)
-            ->orderBy('created_at', 'desc')
-            ->paginate(config('const(QUESTION_PAGINATE_NUM)'));
+        $userId = Auth::id();
+        $questions = $this->question->showMypage($userId);
         return view('user.question.mypage', compact('questions'));
     }
 
@@ -64,8 +57,8 @@ class QuestionController extends Controller
     public function confirm(QuestionRequest $request)
     {
         $question = $request->requestConfirm();
-        $id = $request->input('tag_category_id');
-        $category = $this->category->find($id);
+        $categoryId = $request->input('tag_category_id');
+        $category = $this->category->find($categoryId);
         return view('user.question.confirm', compact('question', 'category'));
     }
 
