@@ -30,6 +30,6 @@ class CommentController extends Controller
         $inputs = $request->requestComment();
         $question = $this->question->find($inputs['question_id']);
         $this->comment->create($inputs);
-        return redirect()->route('question.show', ['question' => $question]);
+        return redirect()->route('question.show', compact('question'));
     }
 }
